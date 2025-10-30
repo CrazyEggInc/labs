@@ -1,0 +1,10 @@
+# Lab-specific Python dependencies for computing-experiment-metrics
+# Base dependencies (Python, Java, Spark, Jupyter) are provided by the Dockerfile
+
+plotly==4.9.0
+bravado==10.5.0
+matplotlib
+kaleido
+ipywidgets
+jinja2
+ssrm-test

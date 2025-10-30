@@ -2,20 +2,27 @@
 
 # run.sh
 #
-# A handy script for running the Lab notebook locally using a conda environment
+# A handy script for running the Lab notebook locally using Docker
+# This script requires Docker to be installed
 
 set -e
 
 SCRIPT_DIR=$(dirname "$0")
-. "$SCRIPT_DIR/base.sh"
-. "$LAB_BIN_DIR/env.sh"
 
+echo "==================================================================================="
+echo "This lab runs using Docker."
+echo "Please ensure Docker is installed on your system."
+echo ""
+echo "Docker provides all necessary dependencies (Python, Spark, Jupyter)."
+echo ""
 if [[ -z "${OPTIMIZELY_DATA_DIR:-}" ]]; then
-    echo "Note: If you'd like to run this notebook using data stored in a different directory, make sure"
-    echo "      to set the OPTIMIZELY_DATA_DIR environment variable first.  For example:"
-    echo "           export OPTIMIZELY_DATA_DIR=~/optimizely_data"
+    echo "Note: If you'd like to run this notebook using data stored in a different"
+    echo "      directory, set the OPTIMIZELY_DATA_DIR environment variable first."
+    echo "      For example: export OPTIMIZELY_DATA_DIR=~/optimizely_data"
+    echo ""
 fi
+echo "Starting Docker container..."
+echo "==================================================================================="
 
-# Run Jupyter Lab
-echo "Running Jupyter Lab in $LAB_BASE_DIR"
-jupyter lab "$LAB_BASE_DIR"
+# Call the Docker run script
+bash "$SCRIPT_DIR/run-docker.sh"

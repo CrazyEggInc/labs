@@ -9,78 +9,36 @@ In this Lab, we'll assume you're working with a standalone Spark cluster running
 
 ## Running this notebook
 
-There are several ways to run this notebook locally:
-- Using the `run.sh` script
-- Using [Docker](https://www.docker.com/) with the `run-docker.sh` script
-- Manually, using the `conda` CLI
+This lab runs using [Docker](https://www.docker.com/), which provides all necessary dependencies (Python, Java, Spark, Jupyter). The lab includes a `Dockerfile` that builds a custom image from the official `python:3.11-slim` base image, installing all dependencies via standard package managers (apt and pip).
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/) must be installed on your system
 
 ### Running the notebook with `run.sh`
 
-You can use the `run.sh` script to build your environment and run this notebook with a single command.
-
-#### Prerequisite: conda (version 4.4+)
-
-[Anaconda]: https://www.anaconda.com/distribution/
-[Miniconda]: https://docs.conda.io/en/latest/miniconda.html
-
-You can install the `conda` CLI by installing [Anaconda] or [Miniconda].
-
-#### Running Jupyter Lab
-
-This lab directory contains a handy script for building your conda environment and running Jupyter Lab.  To run it, simply use
+You can use the `run.sh` script to run this notebook with a single command:
 
 ```sh
 bash bin/run.sh
 ```
 
+This script will:
+1. Build a custom Docker image from the local Dockerfile
+2. Install lab-specific Python dependencies
+3. Launch Jupyter Lab
+
 That's it, you're done!
 
-### Running this notebook with Docker
+### Running the notebook directly with Docker
 
-If you have [Docker](https://www.docker.com/) installed, you can run PySpark and Jupyter Lab without installing any other dependencies.
-
-Execute `run-docker.sh` in the `./bin` directory to open Jupyter Lab in a Docker container:
+Alternatively, you can execute `run-docker.sh` directly:
 
 ```sh
 bash bin/run-docker.sh
 ```
 
-**Note:** Docker makes it easy to get started with PySpark, but it adds overhead and may require [additional configuration](https://docs.docker.com/config/containers/resource_constraints/) to handle large workloads.  
-
-### Running this notebook manually
-
-If you prefer to build and activate your conda environment manually, you can use the `conda` CLI and the environment specification files in the `./lab_env` directory to do so.
-
-#### Prerequisite: conda (version 4.4+)
-
-[Anaconda]: https://www.anaconda.com/distribution/
-[Miniconda]: https://docs.conda.io/en/latest/miniconda.html
-
-You can install the `conda` CLI by installing [Anaconda] or [Miniconda].
-
-#### Building and activating your Aanconda environment
-
-Start by building (or updating) and activating your anaconda environment.  This step will install [OpenJDK](https://openjdk.java.net/), [PySpark](https://spark.apache.org/docs/latest/api/python/pyspark.html), [Jupyter Lab](https://jupyter.org/), and other necessary dependencies.
-
-```sh
-conda env update --file lab_env/base.yml --name optimizelylabs
-conda env update --file lab_env/labs.yml --name optimizelylabs
-conda activate optimizelylabs
-```
-
-Next, install a jupyter kernel for this environment:
-
-```sh
-python -m ipykernel install --user \
-    --name optimizelylabs \
-    --display-name="Python 3 (Optimizely Labs Environment)"
-```
-
-Finally, start Jupyter Lab in your working directory:
-
-```sh
-jupyter lab .
-```
+**Note:** Docker makes it easy to get started with PySpark, but it may require [additional configuration](https://docs.docker.com/config/containers/resource_constraints/) to handle large workloads.
 
 ## Specifying a custom data directory
 
