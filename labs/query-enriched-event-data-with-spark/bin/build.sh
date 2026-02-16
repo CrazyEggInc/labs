@@ -27,13 +27,20 @@ if [[ ! -f "$NB" ]]; then
     exit 1
 fi
 
-# Create conda build environment
-export INSTALL_BUILD_DEPENDENCIES=true
-. "$LAB_BIN_DIR/env.sh"
+# Create build directory
+mkdir -p "$LAB_BUILD_DIR"
+
+# Create Python virtual environment and install build dependencies
+echo "Creating Python virtual environment for build"
+VENV_DIR="$LAB_BUILD_DIR/.venv"
+python3 -m venv "$VENV_DIR"
+source "$VENV_DIR/bin/activate"
+
+echo "Installing build dependencies"
+pip install -r "$LAB_BASE_DIR/requirements-build.txt"
 
 # Backup passed notebook
 echo "Backing up $NB to $LAB_BUILD_DIR/backup.ipynb"
-mkdir -p "$LAB_BUILD_DIR"
 cp "$NB" "$LAB_BUILD_DIR/backup.ipynb"
 
 # 1. Remove outputs and cell metadata from the passed notebook

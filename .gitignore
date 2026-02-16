@@ -2,13 +2,9 @@
 .env
 .pyc
 venv
+.venv
 __pycache__
 build/
-
-# Anaconda
-envs
-.conda
-.cache
 
 # OS X Artifacts
 .DS_Store
